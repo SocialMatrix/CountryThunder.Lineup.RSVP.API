@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  countrythunder.lineup.rsvp.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"

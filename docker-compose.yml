@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  countrythunder.lineup.rsvp.api:
+    image: ${DOCKER_REGISTRY-}countrythunderlineuprsvpapi
+    build:
+      context: .
+      dockerfile: CountryThunder.Lineup.RSVP.API\Dockerfile
+    ports:
+      - "1451:80"
+
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - SA_PASSWORD=vV5r9tn0M4@
+      - ACCEPT_EULA=Y
+    ports:
+      - "1450:1433"
