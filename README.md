@@ -4,6 +4,7 @@ Imagine a use case where we have data about 50,000 concert lineup interests that
 
 For the backing service I am using rabbitMQ and Azure SQL database
 
-Added gRPC and REST hybrid support.
+EDIT: 11/01/2021
+dded gRPC and REST hybrid support.
 - REST calls are just forwarded to gRPC
 - Need to add gRPC client and perform some PSR testing
