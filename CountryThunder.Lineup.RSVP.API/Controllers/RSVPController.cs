@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using CountryThunder.Lineup.RSVP.API.Protos;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,9 +15,13 @@ namespace CountryThunder.Lineup.RSVP.API.Controllers
     {
         private readonly IRSVPRepository _rsvpRepository;
 
-        public RSVPController(IRSVPRepository rsvpRepository)
+        private readonly IRSVPService _service;
+
+
+        public RSVPController(IRSVPRepository rsvpRepository, IRSVPService service)
         {
             _rsvpRepository = rsvpRepository;
+            _service = service;
         }
 
         // GET: api/<RSVPController>
@@ -61,14 +66,30 @@ namespace CountryThunder.Lineup.RSVP.API.Controllers
         public async Task<ActionResult<Data.RSVP>> PostAsync([FromBody] Data.RSVP rsvp)
 
         {
+            //try
+            //{
+            //    if (rsvp == null)
+            //        return BadRequest();
+
+            //    var rsvpCreated = await _rsvpRepository.InsertRSVP(rsvp);
+
+            //    return Created(rsvpCreated.Id.ToString(), rsvpCreated);
+            //}
+            //catch (Exception exception)
+            //{
+            //    return StatusCode(StatusCodes.Status500InternalServerError,
+            //        exception.Message);
+            //}
+
             try
             {
                 if (rsvp == null)
                     return BadRequest();
 
-                var rsvpCreated = await _rsvpRepository.InsertRSVP(rsvp);
+                var response = await _service.RSVPPost(new RSVPPostRequest() { Attendee = rsvp.Attendee, Id = rsvp.Id, Lineup = rsvp.Lineup}, null);
 
-                return Created(rsvpCreated.Id.ToString(), rsvpCreated);
+
+                return Created(response.Id.ToString(), new Data.RSVP(){Attendee = response.Attendee, Id = response.Id, Lineup = response.Lineup});
             }
             catch (Exception exception)
             {

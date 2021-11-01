@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "CountryThunder.Lineup.RSVP.API.Protos";
+
+package RSVP;
+
+service RSVPPostService {
+	rpc RSVPPost (RSVPPostRequest) returns (RSVPPostResponse);
+}
+
+message RSVPPostRequest {
+	int32 Id =1;
+	string Attendee =2;
+	string Lineup =3;
+}
+
+message RSVPPostResponse {
+	int32 Id =1;
+	string Attendee =2;
+	string Lineup =3;
+}
